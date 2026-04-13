@@ -14,15 +14,12 @@ const validate = (schema) => {
 const formSchema = Joi.object({
   applicantName: Joi.string().trim().min(2).max(100).required(),
   fatherName: Joi.string().trim().min(2).max(100).required(),
-  mobileNumber: Joi.string().trim().pattern(/^\+?[\d\s-]{7,15}$/).required()
+  mobileNumber: Joi.string().trim().pattern(/^\+?[1-9]\d{6,14}$/).required()
     .messages({ 'string.pattern.base': 'Invalid mobile number' }),
-  email: Joi.string().email().allow('', null).optional(),
-  address: Joi.string().trim().max(500).allow('', null).optional(),
-  dateOfBirth: Joi.alternatives().try(
-    Joi.date().iso(),
-    Joi.string().valid('', null)
-  ).optional(),
-  description: Joi.string().trim().max(1000).allow('', null).optional(),
+  email: Joi.string().email().allow('').optional(),
+  address: Joi.string().trim().max(500).allow('').optional(),
+  dateOfBirth: Joi.date().iso().allow(null).optional(),
+  description: Joi.string().trim().max(1000).allow('').optional(),
   shopkeeperId: Joi.string().hex().length(24).required(),
 });
 
